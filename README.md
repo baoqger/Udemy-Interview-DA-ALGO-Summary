@@ -91,3 +91,36 @@ function cleanString(str) {
     .join('');
 }
 ```
+## Printing Steps
+想要实现的是下面这样的效果：
+```
+--- Examples
+  steps(2)
+      '# '
+      '##'
+  steps(3)
+      '#  '
+      '## '
+      '###'
+  steps(4)
+      '#   '
+      '##  '
+      '### '
+      '####'
+```
+普通方法就不介绍了，记录下recursive的解法：
+```
+function steps(n, row = 0, stair = '') {
+  if (n === row) {
+    return;
+  }
+
+  if (n === stair.length) {
+    console.log(stair);
+    return steps(n, row + 1);
+  }
+
+  const add = stair.length <= row ? '#' : ' ';
+  steps(n, row, stair + add);
+}
+```
