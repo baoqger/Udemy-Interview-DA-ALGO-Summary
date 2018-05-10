@@ -44,3 +44,50 @@ function reverseInt(n) {
   return parseInt(reversed) * Math.sign(n);
 }
 ```
+## Anagrams
+判断两个字符串是否是由相同的字符组成。有两个方法，第一个方法是从字符串构造一个map对象，每个键值对用来记录对应字符出现的次数，然后比较两个map对象是否相等。比较两个map对象是否相等的trick是，先比较长度是否相等，这样就不需要两个map之间的相互映射对比了。<br> 
+1. 方法一：
+```
+function anagrams(stringA, stringB) {
+  const aCharMap = buildCharMap(stringA);
+  const bCharMap = buildCharMap(stringB);
+
+  if (Object.keys(aCharMap).length !== Object.keys(bCharMap).length) {
+    return false;
+  }
+
+  for (let char in aCharMap) {
+    if (aCharMap[char] !== bCharMap[char]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function buildCharMap(str) {
+  const charMap = {};
+
+  for (let char of str.replace(/[^\w]/g, '').toLowerCase()) {
+    charMap[char] = charMap[char] + 1 || 1;
+  }
+
+  return charMap;
+}
+```
+2. 方法二：
+第二个方法更简单一点，把两个字符串进行重组对字符进行排序，然后再判断重组排序之后的字符串是否相等就行了。这个方法可以利用很多help function，代码上要简单很多。
+```
+function anagrams(stringA, stringB) {
+  return cleanString(stringA) === cleanString(stringB);
+}
+
+function cleanString(str) {
+  return str
+    .replace(/[^\w]/g, '')
+    .toLowerCase()
+    .split('')
+    .sort()
+    .join('');
+}
+```
