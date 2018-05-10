@@ -108,7 +108,7 @@ function cleanString(str) {
       '### '
       '####'
 ```
-普通方法就不介绍了，记录下recursive的解法：
+普通方法就不介绍了，记录下recursive的解法, recursive的方法通常都会带一些有默认值的参数，每步recursive的过程需要调整这些参数的值：
 ```
 function steps(n, row = 0, stair = '') {
   if (n === row) {
