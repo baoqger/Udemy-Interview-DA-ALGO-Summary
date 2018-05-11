@@ -189,3 +189,30 @@ function matrix(n) {
   return results;
 }
 ```
+## Fibonacci
+利用recursive的方法来解决Fibonacci的问题，本来也是常规手法，但是原始的递归方法性能太差了，几乎是指数式的复杂度。这里引入了一个很通用的优化技巧：Memoization，其实就是对之前已经计算过的值进行缓存，这样再次需要这个结果的时候，就不用重复浪费计算了
+```
+function memoize(fn) {
+  const cache = {};
+  return function(...args) {
+    if (cache[args]) {
+      return cache[args];
+    }
+
+    const result = fn.apply(this, args);
+    cache[args] = result;
+
+    return result;
+  };
+}
+
+function slowFib(n) {
+  if (n < 2) {
+    return n;
+  }
+
+  return fib(n - 1) + fib(n - 2);
+}
+
+const fib = memoize(slowFib);
+```
