@@ -216,3 +216,34 @@ function slowFib(n) {
 
 const fib = memoize(slowFib);
 ```
+对于fibonacci这个具体的问题，其实memoize函数可以简化为下面这样：
+```
+function memoize(fn) {
+	const cache = {};
+	return function(n) {
+		if(cache[n]) {
+			return cache[n];
+		}
+		const result = fn(n);
+		cache[n] = result;
+		
+		return result;
+	}
+}
+```
+为了处理各种各样的问题，对memoize函数进行了抽象，其中...args和apply的使用是亮点：
+```
+function memoize(fn) {
+  const cache = {};
+  return function(...args) {
+    if (cache[args]) {
+      return cache[args];
+    }
+
+    const result = fn.apply(this, args);
+    cache[args] = result;
+
+    return result;
+  };
+}
+```
