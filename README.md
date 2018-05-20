@@ -247,3 +247,48 @@ function memoize(fn) {
   };
 }
 ```
+## Two Become One
+所谓的Two Become one，就是说用两个stack来模拟queue的行为（Implement a Queue datastructure using two stacks）。实现起来，需要在两个stack之间，把数据倒来倒去的，如下：
+```
+const Stack = require('./stack');
+
+class Queue {
+  constructor() {
+    this.first = new Stack();
+    this.second = new Stack();
+  }
+
+  add(record) {
+    this.first.push(record);
+  }
+
+  remove() {
+    while (this.first.peek()) {
+      this.second.push(this.first.pop());
+    }
+
+    const record = this.second.pop();
+
+    while (this.second.peek()) {
+      this.first.push(this.second.pop());
+    }
+
+    return record;
+  }
+
+  peek() {
+    while (this.first.peek()) {
+      this.second.push(this.first.pop());
+    }
+
+    const record = this.second.peek();
+
+    while (this.second.peek()) {
+      this.first.push(this.second.pop());
+    }
+
+    return record;
+  }
+}
+```
+
