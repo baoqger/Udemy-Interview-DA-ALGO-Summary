@@ -247,7 +247,7 @@ function memoize(fn) {
   };
 }
 ```
-## Queue
+## Queue and Stack
 其实在原生js的array同时包含了stack和queue的所有功能，单独创建这两个数据集是为了区别它们的不同。
 ```
 class Queue {
