@@ -247,6 +247,43 @@ function memoize(fn) {
   };
 }
 ```
+## Queue
+其实在原生js的array同时包含了stack和queue的所有功能，单独创建这两个数据集是为了区别它们的不同。
+```
+class Queue {
+  constructor() {
+    this.data = [];
+  }
+
+  add(record) {
+    this.data.unshift(record);
+  }
+
+  remove() {
+    return this.data.pop();
+  }
+}
+```
+```
+class Stack {
+  constructor() {
+    this.data = [];
+  }
+
+  push(record) {
+    this.data.push(record);
+  }
+
+  pop() {
+    return this.data.pop();
+  }
+
+  peek() {
+    return this.data[this.data.length - 1];
+  }
+}
+```
+
 ## Two Become One
 所谓的Two Become one，就是说用两个stack来模拟queue的行为（Implement a Queue datastructure using two stacks）。实现起来，需要在两个stack之间，把数据倒来倒去的，如下：
 ```
