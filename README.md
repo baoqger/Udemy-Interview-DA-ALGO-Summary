@@ -486,3 +486,34 @@ class LinkedList {
   }
 }
 ```
+## Find the midpoint
+这是一个有意思的问题，利用刚刚创建的Linked List，寻找一个链表的中心点。要求利用链表自己的API，不能用coutner计数器变量来实现，也不能获取链表的size信息，只能用逐个遍历的方法。
+``` 
+--- Directions
+Return the 'middle' node of a linked list.
+If the list has an even number of elements, return
+the node at the end of the first half of the list.
+*Do not* use a counter variable, *do not* retrieve
+the size of the list, and only iterate
+through the list one time.
+--- Example
+  const l = new LinkedList();
+  l.insertLast('a')
+  l.insertLast('b')
+  l.insertLast('c')
+  midpoint(l); // returns { data: 'b' }
+```
+实现方法如下：综合考虑奇、偶两种情况，需要对while循环的判断条件设计下。
+```
+function midpoint(list) {
+  let slow = list.getFirst();
+  let fast = list.getFirst();
+
+  while (fast.next && fast.next.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  return slow;
+}
+```
