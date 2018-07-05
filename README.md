@@ -21,6 +21,20 @@ function palindrome(str) {
   });
 }
 ```
+补充一个递归的方法如下：
+```
+function palindromeRecursive(str) {
+  if (str.length <= 1) {
+    return true;
+  } else {
+    if (str[0] !== str[str.length - 1]) {
+      return false;
+    } else {
+      return palindromeRecursive(str.substring(1, str.length - 1))
+    }
+  }
+}
+```
 ## Integer Reversal
 将一个integer进行翻转，这里面的几个函数，对负数等边界条件进行了很好的处理：
 ```
