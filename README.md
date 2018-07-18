@@ -35,6 +35,50 @@ function palindromeRecursive(str) {
   }
 }
 ```
+## Longest Paldinromes substring
+
+```
+function longestPalin(str) {
+  str = treatStr(str);
+  console.log(str)
+  let max =  0;
+  for (let i  = 1; i < str.length - 1; i++) {
+    let radius = Math.min (i, str.length - i - 1);
+    console.log(radius)
+    let currentMax = getMaxSubLength(str, i, radius);
+    if (max < currentMax) {
+      max = currentMax + 1;
+    }
+  }
+  return max;
+}
+
+function getMaxSubLength(str, i, radius) {
+  let max = 0;
+  for (let j = 0; j <= radius; j++) {
+    if (str[i - j] === str[i + j]) {
+      max = j;
+    } else {
+      break;
+    }
+  }
+  return max;
+}
+
+function treatStr(str) {
+  let rtn = '';
+  for (let i = 0; i < str.length; i++) {
+    if (i === str.length - 1) {
+      rtn = rtn + str[i];
+    } else  {
+      rtn = rtn + str[i] + '#';
+    }
+    
+  }
+  return rtn;
+}
+```
+
 ## Integer Reversal
 将一个integer进行翻转，这里面的几个函数，对负数等边界条件进行了很好的处理：
 ```
