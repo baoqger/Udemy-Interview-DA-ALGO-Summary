@@ -36,7 +36,7 @@ function palindromeRecursive(str) {
 }
 ```
 ## Longest Paldinromes substring
-
+从一个字符串中找出长度最长的回文字符串，并返回长度。mark一下。下面这个方法随时还不错的一个，O(n^2)复杂度的，比暴利求解的O(n^3)还是有挺多优化的。
 ```
 function longestPalin(str) {
   str = treatStr(str);
@@ -575,3 +575,46 @@ function midpoint(list) {
   return slow;
 }
 ```
+## 大数相乘
+两个字符串str1, str2, 假设长度都超过100，它们本身都是合法的整数，比如'12370...99', '5689...88'，计算它们的乘积
+```
+function addbyStr(str1, str2) {
+  let len = Math.max(str1.length, str2.length);
+  let increase = 0;
+  let rtn = '';
+  for (let i = 0; i < len; i++) {
+    let ope1 = i <= str1.length - 1 ? str1[str1.length - 1 -i] : '0';
+    let ope2 = i <= str2.length - 1 ? str2[str2.length - 1 -i] : '0';
+    let temp = parseInt(ope1) + parseInt(ope2) + increase;
+    if (temp >= 10) {
+      increase = 1;
+      temp = temp - 10;
+    } else {
+      increase = 0;
+    }
+    rtn = temp + rtn;
+  }
+  return rtn;
+}
+   
+
+function addArr(arr) {
+  let result = arr.reduce((rtn, each) => {
+    return rtn = addbyStr(rtn, each);
+  });
+  return result;
+}
+
+function mutliTwoStr(str1, str2) {
+  let rtn = [];
+  for (let i = 0; i < str2.length; i++) {
+    let count = parseInt(str2[str2.length - 1 - i]);
+    let temp = new Array(count).fill(str1)
+    let tempResult = addArr(temp)
+    tempResult =  tempResult + '0'.repeat(i)
+    rtn.push(tempResult)
+  }
+  return addArr(rtn);
+}
+```
+乘法是源于加法的，所以上面这个解法，就是反复调用大数相加的逻辑，很有意思。
